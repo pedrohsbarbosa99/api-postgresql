@@ -26,6 +26,9 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 	}
 	if rows > 1 {
 		log.Printf("Error: foram atualizados %d registros", rows)
+	} else if rows == 0 {
+		http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
+		return
 	}
 	resp := map[string]any{
 		"Error":   false,
